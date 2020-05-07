@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "register.css" %}">
+</head>
+<body>
+
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2" class="tab">Inscription</label>
+		<div class="login-form">
+			<form class="sign-up-htm" method="POST">
+                {% csrf_token %}
+				<div class="group">
+					<label for="name" class="label">Nom</label>
+					<input id="name" name="managerName" type="text" class="input">
+				</div>
+				<div class="group">
+					<label for="email" class="label">Email</label>
+					<input id="email" name="email" type="text" class="input">
+				</div>
+				<div class="group">
+					<label for="phoneNumber" class="label">Numéro de téléphone</label>
+					<input id="phoneNumber" name="phoneNumber" type="tel" class="input">
+				</div>
+				<div class="group">
+					<label for="password" class="label">Password</label>
+					<input id="password" name="password" type="password" class="input" data-type="password">
+				</div>
+				<div class="group">
+					<label for="address" class="label">Adresse</label>
+					<input id="address" name="address" type="text" class="input">
+				</div>
+				<div class="group">
+					<label for="postalCode" class="label">Code Postal</label>
+					<input id="postalCode" name="postalCode" type="text" class="input">
+				</div>
+				<div class="group">
+					<label for="members" class="label">Nombre de personnes dans le Foyer</label>
+					<input id="members" name="totalMembers" type="number" class="input">
+				</div>
+				<div class="group sub">
+					<input type="submit" class="button" value="Inscription">
+				</div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+                    <label>Vous avez déjà un compte ?</label>
+					<a href="{% url 'login' %}">Connectez-vous</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

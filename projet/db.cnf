@@ -1,0 +1,5 @@
+[client]
+database = foyer_france
+user = root
+password ="Genieindus2020."
+default-character-set = utf8
