@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu May  7 18:47:03 2020
-
-@author: Yassine ABAAB
-"""
+from secret import bdd_login, bdd_password
 
 #PRE REQUIS
 #Avoir installer my sql connector
@@ -14,8 +9,8 @@ import mysql.connector
 def ConnexionSQL(requete):
     madb = mysql.connector.connect(
         host = "localhost",
-        user = "root",
-        passwd = "pisamiph",
+        user = bdd_login,
+        passwd = bdd_password,
         database = "projetpython"
         
         )
