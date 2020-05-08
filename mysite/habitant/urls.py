@@ -18,11 +18,11 @@ from django.urls import path,include
 from . import views 
 
 urlpatterns = [
-    path('connexion/',views.ConnexionUser, name='connexion'),
-    path('inscription/',views.InscriptionUser, name='inscription'),
-    path('espace personnel/', views.EspacePersoUser, name='espace personnel'),
-    path('demande/',views.DemandeUser, name='demande'),
-    path('special/',views.SpecialUser, name='special'),
-    path('panier/',views.PanierUser, name='panier'),
-    path('paiement/',views.PaiementUser, name='paiement'),
+    path('connexion/',views.habitantConnexion, name='connexion'),
+    path('inscription/',views.habitantInscription, name='inscription'),
+    path('espace personnel/', views.habitantEspacePerso, name='espace personnel'),
+    path('demande/',views.habitantDemande, name='demande'),
+    path('special/',views.habitantSpecial, name='special'),
+    path('panier/',views.habitantPanier, name='panier'),
+    path('paiement/',views.habitantPaiement, name='paiement'),
 ]
