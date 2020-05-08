@@ -10,3 +10,7 @@ class Produit(models.Model):
         return nomProduit
     def allstr(self):
         return nomProduit + " "+str(quantitemax)+" /personnes, prix : " +str(prix)
+
+class Chemin(models.Model):
+    nom=models.CharField(max_length=40)
+    lien=models.CharField(max_length=100)

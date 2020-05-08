@@ -4,11 +4,24 @@ from django.http import HttpResponse
 # Create your views here.
 
 def communeBase(request):
-    return HttpResponse("Page de base d'une commune")
+    data={"data": [{
+                "nom": "action",
+                "link": "/commune/action"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
 
 def communeaction(request):
-    output=", ".join(["gestion des produits","Visualisation"])
-    return HttpResponse(output)
+    data={"data": [{
+                "nom": "produits",
+                "link": "/commune/produits/"
+            },
+            {
+                "nom":"visualisation",
+                "link": "/commune/visualisation/"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
 
 def communeproduitChoix(request):
     return HttpResponse("Page de choix d'action sur les produits d'une commune")

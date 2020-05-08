@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<ul>
+	{% for element in data %}
+		<li><a href="{{element.link}}">{{element.nom}}</a></li>
+	{% endfor %}
+	</ul>
+</body>
+</html>
