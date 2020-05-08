@@ -4,7 +4,12 @@ from django.http import HttpResponse
 # Create your views here.
 
 def communeBase(request):
-    data={"data": [{
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/"
+            },
+            {
                 "nom": "action",
                 "link": "/commune/action"
             }
@@ -12,7 +17,12 @@ def communeBase(request):
     return render(request, "commune/communeBase.html", data)
 
 def communeaction(request):
-    data={"data": [{
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/"
+            },
+            {
                 "nom": "produits",
                 "link": "/commune/produits/"
             },
@@ -24,19 +34,80 @@ def communeaction(request):
     return render(request, "commune/communeBase.html", data)
 
 def communeproduitChoix(request):
-    return HttpResponse("Page de choix d'action sur les produits d'une commune")
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/action/"
+            },
+            {
+                "nom": "ajout",
+                "link": "/commune/produits/add/"
+            },
+            {
+                "nom":"retirer",
+                "link": "/commune/produits/add/"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
 
 def communeproduitAdd(request):
-    return HttpResponse("Page pour ajouter un produit dans une commune")
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/produits/"
+            }
+        ]
+        }
+    return render(request, "commune/communeBase.html", data)
 
 def communeproduitSub(request):
-    return HttpResponse("Page pour enlever un produit dans une commune")
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/produits/"
+            },
+            {
+                "nom":"Produit 1"
+                "link":"/commune/produits/sub/validation/"
+            },
+            {
+                "nom":"Produit 2"
+                "link":"/commune/produits/sub/validation/"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
 
 def communevisuchoix(request):
-    return HttpResponse("Page de choix de visualisation d'une commune")
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/action/"
+            },
+            {
+                "nom": "visualisation 1",
+                "link": "/commune/visualisation/1/"
+            },
+            {
+                "nom": "visualisation 2",
+                "link": "/commune/visualisation/2/"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
 
 def communevisualisation(request,numeroVu):
-    return HttpResponse("Page de visualisation n°%s d'une commune" % numeroVu)
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
 
 def communevalidsuppr(request,Produitasupprimer):
-    return HttpResponse("Page de validation de la suppression du produit : %s d'une commune" % Produitasupprimer)
+    data={"data": [
+            {
+                "nom":"retour arriere",
+                "link":"/commune/action/"
+            }
+        ]}
+    return render(request, "commune/communeBase.html", data)
