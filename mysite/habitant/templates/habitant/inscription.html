@@ -17,14 +17,16 @@
 </head>
 <body>
 	<div class="col col-7 mx-auto">	
-		<form>
+		<form method="post">
+			{% csrf_token %}
+			{{ form }}
 			<h1>Formulaire d'inscription</h1>
 			<div class="form-row">
 				<div class="col">
-					<input class="form-control" type="text" required name="Nom" placeholder="Nom">
+					<input class="form-control" type="text" required name="nom" placeholder="nom">
 				</div>
 				<div class="col">
-					<input class="form-control" type="text" required name="Prenom" placeholder="Prénom">
+					<input class="form-control" type="text" required name="prenom" placeholder="Prénom">
 				</div>
 			</div>
 			<div class="form-row">
@@ -37,18 +39,18 @@
 			</div>
 			<div class="form-row">
 				<div class="col">
-					<input class="form-control" type="tel" required name="Tel" placeholder="Téléphone">
+					<input class="form-control" type="tel" required name="tel" placeholder="Téléphone">
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="col">
-					<input class="form-control" type="number" required name="N-rue" placeholder="Numéro de la rue">
+					<input class="form-control" type="number" required name="n-rue" placeholder="Numéro de la rue">
 				</div>
 				<div class="col">
-					<input class="form-control" type="text" required name="Rue" placeholder="Rue">
+					<input class="form-control" type="text" required name="rue" placeholder="Rue">
 				</div>
 				<div class="col">
-					<input class="form-control" type="number" required name="Code-postal" placeholder="Code postal">
+					<input class="form-control" type="number" required name="code-postal" placeholder="Code postal">
 				</div>
 			</div>
 			<div class="form-row">
