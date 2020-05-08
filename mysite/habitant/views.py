@@ -6,13 +6,13 @@ from django.http import HttpResponse
 def habitantConnexion (request):
     return HttpResponse("Page de connexion pour les habitants")
 
-def habitantInscription (request): 
-    return HttpResponse("Page d'inscription pour les habitants")
+def habitantInscription (request):
+    return render(request, 'habitant/inscription.html')
 
 def habitantEspacePerso (request):
     return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
-def habitantDemande (request): 
+def habitantDemande (request):
     return HttpResponse("Page de demande pour les habitants")
 
 def habitantSpecial (request):
