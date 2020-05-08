@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from . import views
 
 urlpatterns = [
     path('',views.communeBase,name="base"),
@@ -22,5 +23,6 @@ urlpatterns = [
     path('produits/',views.communeproduitChoix,name="produits"),
     path('produits/add/',views.communeproduitAdd,name="ajoutProd"),
     path('produits/sub/',views.communeproduitSub,name="retireProd"),
-    path('Visualisation/<int numeroVu>/',views.communevisualisation,name="visu"),
+    path('Visualisation/',views.communevisuchoix,name="visuchoix"),
+    path('Visualisation/<int:numeroVu>/',views.communevisualisation,name="visu"),
 ]
