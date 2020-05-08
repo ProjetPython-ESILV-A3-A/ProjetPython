@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('connexion/',views.ConnexionUser, name='connexion'),
     path('inscription/',views.InscriptionUser, name='inscription'),
+    path('espace personnel/', views.EspacePersoUser, name='espace personnel'),
     path('demande/',views.DemandeUser, name='demande'),
     path('special/',views.SpecialUser, name='special'),
     path('panier/',views.PanierUser, name='panier'),
