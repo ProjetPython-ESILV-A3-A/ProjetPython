@@ -7,7 +7,7 @@ from DB import *
 # Create your views here.
 
 def habitantConnexion (request):
-		return HttpResponse("Page de connexion pour les habitants")
+		return render(request, 'habitant/connexion.html')
 
 def habitantInscription (request):
 	if request.method == 'GET':
