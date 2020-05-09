@@ -25,5 +25,5 @@ urlpatterns = [
     path('produits/sub/',views.communeproduitSub,name="retireProd"),
     path('produits/sub/validation/<Produitasupprimer>/',views.communevalidsuppr,name="retireProd"),
     path('Visualisation/',views.communevisuchoix,name="visuchoix"),
-    path('Visualisation/<int:numeroVu>/',views.communevisualisation,name="visu"),
+    path('Visualisation/<int:numeroVu>/',views.communeVisualisation,name="visu"),
 ]

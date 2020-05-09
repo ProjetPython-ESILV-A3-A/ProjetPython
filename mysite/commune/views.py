@@ -13,7 +13,9 @@ def communeBase(request):
                 "nom": "action",
                 "link": "/commune/action"
             }
-        ]}
+        ],
+        "titre":"Imaginer ici un ecran d'identification"
+        }
     return render(request, "commune/communeBase.html", data)
 
 def communeaction(request):
@@ -27,10 +29,12 @@ def communeaction(request):
                 "link": "/commune/produits/"
             },
             {
-                "nom":"visualisation",
-                "link": "/commune/visualisation/"
+                "nom":"Visualisation",
+                "link":"/commune/Visualisation/"
             }
-        ]}
+        ],
+        "titre":"Selection action à faire"
+        }
     return render(request, "commune/communeBase.html", data)
 
 def communeproduitChoix(request):
@@ -45,9 +49,11 @@ def communeproduitChoix(request):
             },
             {
                 "nom":"retirer",
-                "link": "/commune/produits/add/"
+                "link": "/commune/produits/sub/"
             }
-        ]}
+        ],
+        "titre":"Selection du destin de produits"
+        }
     return render(request, "commune/communeBase.html", data)
 
 def communeproduitAdd(request):
@@ -56,7 +62,8 @@ def communeproduitAdd(request):
                 "nom":"retour arriere",
                 "link":"/commune/produits/"
             }
-        ]
+        ],
+        "titre":"Selection du/des produit/s à ajouter"
         }
     return render(request, "commune/communeBase.html", data)
 
@@ -67,14 +74,16 @@ def communeproduitSub(request):
                 "link":"/commune/produits/"
             },
             {
-                "nom":"Produit 1"
-                "link":"/commune/produits/sub/validation/"
+                "nom":"Produit 1",
+                "link":"/commune/produits/sub/validation/1/"
             },
             {
-                "nom":"Produit 2"
-                "link":"/commune/produits/sub/validation/"
+                "nom":"Produit 2",
+                "link":"/commune/produits/sub/validation/2/"
             }
-        ]}
+        ],
+        "titre":"Selection du/des produit/s à supprimer"
+        }
     return render(request, "commune/communeBase.html", data)
 
 def communevisuchoix(request):
@@ -84,23 +93,27 @@ def communevisuchoix(request):
                 "link":"/commune/action/"
             },
             {
-                "nom": "visualisation 1",
-                "link": "/commune/visualisation/1/"
+                "nom": "Visualisation 1",
+                "link": "/commune/Visualisation/1/"
             },
             {
-                "nom": "visualisation 2",
-                "link": "/commune/visualisation/2/"
+                "nom": "Visualisation 2",
+                "link": "/commune/Visualisation/2/"
             }
-        ]}
+        ],
+        "titre":"Selection de la visualisation"
+        }
     return render(request, "commune/communeBase.html", data)
 
-def communevisualisation(request,numeroVu):
+def communeVisualisation(request,numeroVu):
     data={"data": [
             {
                 "nom":"retour arriere",
-                "link":"/commune/"
+                "link":"/commune/Visualisation/"
             }
-        ]}
+        ],
+        "titre":"Option de Visualisation n°"+str(numeroVu)
+        }
     return render(request, "commune/communeBase.html", data)
 
 def communevalidsuppr(request,Produitasupprimer):
@@ -109,5 +122,7 @@ def communevalidsuppr(request,Produitasupprimer):
                 "nom":"retour arriere",
                 "link":"/commune/action/"
             }
-        ]}
+        ],
+        "titre":"Etes-vous sûr de vouloir supprimer le produit "+Produitasupprimer+"?"
+        }
     return render(request, "commune/communeBase.html", data)
