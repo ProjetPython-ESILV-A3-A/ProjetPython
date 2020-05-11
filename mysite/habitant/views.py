@@ -7,7 +7,13 @@ from DB import *
 # Create your views here.
 
 def habitantConnexion (request):
-		return render(request, 'habitant/connexion.html')
+    if request.method == 'GET':
+        return render(request,'/habitant/inscription.html')
+    elif request.method == 'POST':
+        email = request.POST["email"]
+        password = request.POST["password"]
+        
+        request = "Select id from Admin where email = "+email+" and mdp ="+password+ "
 
 def habitantInscription (request):
 	if request.method == 'GET':
