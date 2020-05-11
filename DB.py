@@ -15,16 +15,16 @@ class DB:
             user = bdd_login,
             passwd = bdd_password,
             database = "projetpython"
-            
+
             )
-        
+
         #madb = ma database
         moncurseur = madb.cursor()
         moncurseur.execute(requete)
         infos = []
         for ligne in moncurseur :
             infos.append(ligne)
-        
+
         return infos
 
     def RequestSQL(requete):
@@ -34,15 +34,15 @@ class DB:
                 user = bdd_login,
                 passwd = bdd_password,
                 database = "projetpython"
-            
+
             )
-        
+
             moncurseur = madb.cursor()
             moncurseur.execute(requete)
             madb.commit()
             print(moncurseur.rowcount, "tuple à bien été pris en compte")
             moncurseur.close()
-        
+
         except mysql.connector.Error as error:
             print("La requete a echoue {}".format(error))
 
@@ -50,5 +50,4 @@ class DB:
             if (madb.is_connected()):
                 madb.close()
                 print("La connexion MYSQL est fermé")
-
 

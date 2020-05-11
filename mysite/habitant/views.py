@@ -37,22 +37,12 @@ def habitantEspacePerso (request):
 		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
 def habitantDemande (request):
-    data={"produits": [
-            {
-                "NomProduit":"coquillettes",
-                "CatégorieProduit":"pates",
-                "PrixProduit":5,
-                "Lienimage":"/habitant/coquillettes.jpg"
-            },
-            {
-                "NomProduit":"eau",
-                "CatégorieProduit":"boisson",
-                "PrixProduit":1,
-                "Lienimage":"/images/eau.jpg"
-            }
-        ]
-        }
-    return render(request, "habitant/demande.html", data)
+	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT nom,categorie, prix FROM produit")
+	listedataproduits=[]
+	for produit in listeproduitsbrute:
+		listedataproduits.append({"NomProduit":produit[0],"CatégorieProduit":produit[1],"PrixProduit":produit[2]})
+	data={"produits": listedataproduits}
+	return render(request, "habitant/demande.html", data)
 
 
 def habitantSpecial (request):
