@@ -37,23 +37,7 @@ def habitantEspacePerso (request):
 		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
 def habitantDemande (request):
-    data={"produits": [
-            {
-                "NomProduit":"coquillettes",
-                "CatégorieProduit":"pates",
-                "PrixProduit":5,
-                "Lienimage":"/habitant/coquillettes.jpg"
-            },
-            {
-                "NomProduit":"eau",
-                "CatégorieProduit":"boisson",
-                "PrixProduit":1,
-                "Lienimage":"/images/eau.jpg"
-            }
-        ]
-        }
-    return render(request, "habitant/demande.html", data)
-
+		return HttpResponse("Page de demande pour les habitants")
 
 def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
