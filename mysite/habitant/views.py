@@ -37,12 +37,29 @@ def habitantEspacePerso (request):
 		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
 def habitantDemande (request):
-	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT nom,categorie, prix FROM produit")
 	listedataproduits=[]
+
+	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,categorie, prix FROM produit")
 	for produit in listeproduitsbrute:
-		listedataproduits.append({"NomProduit":produit[0],"CatégorieProduit":produit[1],"PrixProduit":produit[2]})
+		listedataproduits.append({
+		"produitId":produit[0],
+		"NomProduit":produit[1],
+		"CatégorieProduit":produit[2],
+		"PrixProduit":produit[3]})
 	data={"produits": listedataproduits}
-	return render(request, "habitant/demande.html", data)
+	if request.method=='GET':
+		# for element in listeproduitsbrute:
+		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
+		if str(request.GET)=="<QueryDict: {}>":
+			data["Title"]="Produits proposés"
+			return render(request, "habitant/demande.html", data)
+		else:
+			DB.RequestSQL("INSERT INTO commande(`nomDemandeur`) VALUES ('"+"Jean"+"');")
+			idcommande = DB.ConnexionSQLSelect("SELECT MAX(id) FROM commande WHERE nomDemandeur='"+'Jean'+"';")
+			for element in request.GET:
+				if(request.GET[element]!='0'):
+					DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.GET[element])+");")
+			return HttpResponseRedirect("/habitant/paiement/")
 
 
 def habitantSpecial (request):
