@@ -1,5 +1,11 @@
 use `projetpython`;
 
+drop table if exists Demandeur;
+drop table if exists Admin;
+drop table if exists produit;
+drop table if exists commande;
+drop table if exists SousCommande;
+
 create table `projetpython`.`Demandeur`(
 `id` int not null auto_increment,
 `nom` varchar(25) not null,
@@ -24,4 +30,16 @@ create table `projetpython`.`Produit`(
 `categorie` varchar(25) not null,
 `unite` varchar(5) not null,
 `prix` double not null, 
+primary key (`id`));
+
+CREATE TABLE `projetpython`.`Commande`(
+`id` int not null auto_increment,
+`nomDemandeur` varchar(25) not null,
+primary key (`id`));
+
+create table `projetpython`.`SousCommande`(
+`id` int not null auto_increment,
+`idCommande` varchar(25) not null,
+`idProduit` varchar(25) not null,
+`quantiteDemandee`int not null,
 primary key (`id`));

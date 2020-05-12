@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Inscription</title>
+	<title>Demande</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<style type="text/css">
 		form{
@@ -16,6 +16,11 @@
 	</style>
 </head>
 <body>
+	<div>
+		<h1>
+			{{Title}}
+		</h1>
+	</div>
 	<div class="col col-4 mx-auto">	
 		<form>
 			<table class="table">
@@ -38,7 +43,7 @@
 							<div class="form-group">
 								<div style="">
 									<label>Quantité</label>
-									<select class="form-control" name="produitId,Quantite">
+									<select class="form-control" name="{{objet.produitId}}">
 										<option>0</option>
 										<option>1</option>
 										<option>2</option>
