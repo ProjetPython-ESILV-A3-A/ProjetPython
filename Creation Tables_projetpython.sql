@@ -39,7 +39,7 @@ primary key (`id`));
 
 create table `projetpython`.`SousCommande`(
 `id` int not null auto_increment,
-`idCommande` varchar(25) not null,
-`idProduit` varchar(25) not null,
+`idCommande` int not null,
+`idProduit` int not null,
 `quantiteDemandee`int not null,
 primary key (`id`));
