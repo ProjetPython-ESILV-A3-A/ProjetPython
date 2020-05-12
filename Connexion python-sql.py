@@ -7,6 +7,7 @@ from secret import bdd_login, bdd_password
 import mysql.connector
 from mysql.connector import Error
 from mysql.connector import errorcode
+import random
 
 def ConnexionSQLSelect(requete):
     madb = mysql.connector.connect(
@@ -75,7 +76,27 @@ infos = ConnexionSQLSelect(requeteSelect)
 for ligne in infos:
     print(ligne)
     
+#GENERER PANIER ALEATOIRE
+
+def GenererPanierAleatoire(ID_DEMANDEUR,NB_PRODUITS):
+
+    requete1 = "INSERT INTO `projetpython`.`Commande` (`idDemandeur`) VALUES ("+str(ID_DEMANDEUR)+");"
+    ConnexionSQL(requete1)
+    requeteId = "select max(id) from Commande"
+    idTab = ConnexionSQLSelect(requeteId)
+    idCommande = idTab[0][0]
+    print(idCommande)
+
+    for panier in range(NB_PRODUITS):    
+
+        idProduit = random.randint(1,20)        
+        quantite = random.randint(1,5)    
+        requete3 = "INSERT INTO `projetpython`.`SousCommande` (`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idCommande)+" , "+str(idProduit)+" , "+str(quantite)+");"    
+        ConnexionSQL(requete3)
 
 
+def GenererDesPaniersAleatoire(NB_PANIERS):
+    for i in range(NB_PANIERS):
+        GenererPanierAleatoire(1, 5)
 
-
+GenererDesPaniersAleatoire(6)
