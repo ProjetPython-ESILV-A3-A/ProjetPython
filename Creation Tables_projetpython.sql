@@ -34,7 +34,9 @@ primary key (`id`));
 
 CREATE TABLE `projetpython`.`Commande`(
 `id` int not null auto_increment,
-`nomDemandeur` varchar(25) not null,
+`idDemandeur` int not null,
+foreign key(idDemandeur)
+references Demandeur(id),
 primary key (`id`));
 
 create table `projetpython`.`SousCommande`(
@@ -42,4 +44,8 @@ create table `projetpython`.`SousCommande`(
 `idCommande` int not null,
 `idProduit` int not null,
 `quantiteDemandee`int not null,
+foreign key(idCommande)
+references Commande(id),
+foreign key(idProduit)
+references Produit(id),
 primary key (`id`));
