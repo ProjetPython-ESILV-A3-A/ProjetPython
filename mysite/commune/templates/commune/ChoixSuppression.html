@@ -25,7 +25,9 @@
 		<li><a href="{{element.link}}" class="btn btn-primary btn-lg active" role="button">{{element.nom}}</a></li>
 		{% endfor %}
 	</ul>
-	<form>
+	<form method="post">
+		{% csrf_token %}
+		{{ form }}
 		<table class="table">
 			<thead>
 				<tr>
@@ -44,7 +46,7 @@
 					<td>
 						<div class="form-group">
 							<div style="">
-								<input class="form-control" type="checkbox" name="{{objet.produitId}}"/>
+								<input class="form-control" type="checkbox" name="{{objet.produitId}}" />
 							</div>
 						</div>
 					</td>

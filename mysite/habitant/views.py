@@ -51,16 +51,16 @@ def habitantDemande (request):
 		if str(request.GET)=="<QueryDict: {}>":
 			data["Title"]="Produits proposés"
 			return render(request, "habitant/demande.html", data)
-		else:
-			idClient = 1
-			requete = "INSERT INTO commande (idDemandeur) VALUES ("+str(idClient)+");"
-			DB.RequestSQL(requete)
-			requeteId = "SELECT MAX(id) FROM commande WHERE idDemandeur="+str(idClient)+";";
-			idcommande = DB.ConnexionSQLSelect(requeteId)
-			for element in request.GET:
-				if(request.GET[element]!='0'):
-					DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.GET[element])+");")
-			return HttpResponseRedirect("/habitant/paiement/")
+	elif request.method=='POST':
+		idClient = 1
+		requete = "INSERT INTO commande (idDemandeur) VALUES ("+str(idClient)+");"
+		DB.RequestSQL(requete)
+		requeteId = "SELECT MAX(id) FROM commande WHERE idDemandeur="+str(idClient)+";";
+		idcommande = DB.ConnexionSQLSelect(requeteId)
+		for element in request.POST:
+			if(request.POST[element]!='0'):
+				DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.POST[element])+");")
+		return HttpResponseRedirect("/habitant/paiement/")
 
 
 def habitantSpecial (request):

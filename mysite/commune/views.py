@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from DB import *
 
 # Create your views here.
@@ -79,30 +79,13 @@ def communeproduitSub(request):
                 "titre":"Selection du/des produit/s à supprimer"
                 }
             return render(request, "commune/choixSuppression.html", data)
-        else:
-            for element in request.GET:
-                print(element)
-                requete="DELETE FROM produit WHERE id="+element+";"
-                DB.RequestSQL(requete)
-            listedataproduits=[]
-
-            listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,categorie, prix FROM produit")
-            for produit in listeproduitsbrute:
-                listedataproduits.append({
-                "produitId":produit[0],
-                "NomProduit":produit[1],
-                "CategorieProduit":produit[2],
-                "PrixProduit":produit[3]})
-            data={"data": [
-                    {
-                        "nom":"retour arriere",
-                        "link":"/commune/produits/"
-                    }
-                ],
-                "produits":listedataproduits,
-                "titre":"Selection du/des produit/s à supprimer"
-                }
-            return render(request, "commune/choixSuppression.html", data)
+    elif request.method=="POST":
+        for element in request.POST:
+            print(element)
+            requete="DELETE FROM produit WHERE id="+element+";"
+            DB.RequestSQL(requete)
+        listedataproduits=[]
+        return HttpResponseRedirect("/commune/produits/sub/")
 
 def communeproduitAdd(request):
     if request.method=='GET':
@@ -116,30 +99,13 @@ def communeproduitAdd(request):
                 "titre":"Selection du/des produit/s à ajouter"
                 }
             return render(request, "commune/ChoixAjoutProd.html", data)
-        else:
-            nom=request.GET['nomProduit']
-            categorie=request.GET['categorieProduit']
-            unite=request.GET['uniteProduit']
-            prix=request.GET['prixProduit']
-            print(nom+":"+str(type(nom))+"\n"+categorie+":"+str(type(categorie))+"\n"+unite+":"+str(type(unite))+"\n"+str(prix)+":"+str(type(prix))+"\n")
-            requete="INSERT INTO produit(`nom`,`categorie`,`unite`,`prix`) VALUES ('"+nom+"','"+categorie+"','"+unite+"',"+prix+");"
-            print(requete)
-            reussite=True
-            try:
-                DB.RequestSQL(requete)
-                reussite=True
-            except:
-                reussite=False
-            data={"data": [
-                    {
-                        "nom":"retour arriere",
-                        "link":"/commune/produits/"
-                    }
-                ],
-                "titre":"Selection du/des produit/s à ajouter",
-                "soustitre":"Produit rajouter avec succes"*reussite+"Echec de l'ajout"*(not(reussite))
-                }
-            return render(request, "commune/ChoixAjoutProd.html", data)
+    elif request.method=='POST':
+        nom=request.POST['nomProduit']
+        categorie=request.GET['categorieProduit']
+        unite=request.GET['uniteProduit']
+        prix=request.GET['prixProduit']
+        requete="INSERT INTO produit(`nom`,`categorie`,`unite`,`prix`) VALUES ('"+nom+"','"+categorie+"','"+unite+"',"+prix+");"
+        return HttpResponseRedirect("/commune/produits/add/")
 
 
 def communevisuchoix(request):

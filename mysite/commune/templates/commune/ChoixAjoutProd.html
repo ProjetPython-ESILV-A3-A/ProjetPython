@@ -28,7 +28,9 @@
 		<li><a href="{{element.link}}" class="btn btn-primary btn-lg active" role="button">{{element.nom}}</a></li>
 		{% endfor %}
 	</ul>
-	<form>
+	<form method="post">
+		{% csrf_token %}
+		{{ form }}
 		<table class="table">
 			<thead>
 				<tr>
@@ -52,12 +54,12 @@
 					</th>
 					<th class="align-middle">
 						<div>
-							<input class="form-control" required type="text" name="uniteProduit" />
+							<input class="form-control" type="text" name="uniteProduit" />
 						</div>
 					</th>
 					<th class="align-middle">
 						<div>
-							<input class="form-control" required type="number" name="prixProduit" step="0.01"/>
+							<input class="form-control" required type="number" name="prixProduit" step="0.01" />
 						</div>
 					</th>
 				</tr>
