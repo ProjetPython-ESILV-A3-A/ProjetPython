@@ -48,8 +48,6 @@ def habitantDemande (request):
 		"PrixProduit":produit[3]})
 	data={"produits": listedataproduits}
 	if request.method=='GET':
-		# for element in listeproduitsbrute:
-		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
 		if str(request.GET)=="<QueryDict: {}>":
 			data["Title"]="Produits proposés"
 			return render(request, "habitant/demande.html", data)

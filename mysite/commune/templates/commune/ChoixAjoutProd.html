@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    #navigation {
+		list-style:none;
+    }
+	#navigation li{
+		margin : 10px 0;
+	}
+	#navigation li a{
+		width : 300px;
+	}
+</style>
+
+<html>
+<head>
+
+</head>
+<body>
+	<h1>
+		{{titre}}
+	</h1>
+	<h2>
+		{{soustitre}}
+	</h2>
+	<ul id="navigation">
+		{% for element in data %}
+		<li><a href="{{element.link}}" class="btn btn-primary btn-lg active" role="button">{{element.nom}}</a></li>
+		{% endfor %}
+	</ul>
+	<form>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Nom</th>
+					<th scope="col">Marque</th>
+					<th scope="col">unite</th>
+					<th scope="col">Prix</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row" class="align-middle">
+						<div>
+							<input class="form-control" required type="text" name="nomProduit" />
+						</div>
+					</th>
+					<th class="align-middle">
+						<div>
+							<input class="form-control" required type="text" name="categorieProduit" />
+						</div>
+					</th>
+					<th class="align-middle">
+						<div>
+							<input class="form-control" required type="text" name="uniteProduit" />
+						</div>
+					</th>
+					<th class="align-middle">
+						<div>
+							<input class="form-control" required type="number" name="prixProduit" step="0.01"/>
+						</div>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		<div class="form-row">
+			<div class="col-10 mx-auto">
+				<input class="form-control btn btn-primary" type="submit" value="Valider le panier">
+			</div>
+		</div>
+	</form>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
