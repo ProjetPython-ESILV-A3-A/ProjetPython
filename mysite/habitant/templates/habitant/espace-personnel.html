@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Votre espace personnel</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<style type="text/css">
+		form{
+			margin-top: 10rem;
+		}
+		.form-row{
+			margin-bottom: 1.5rem;
+		}
+		h1{
+			margin-bottom: 1.5rem;
+            text-align : center;
+		}
+        h2{
+            font-size : larger;
+        }
+        nav {margin-bottom : 20px}
+        #firstbutton {
+            margin-top : 30px;
+            margin-bottom : 30px}
+        #secondbutton {margin-bottom : 30px}
+	</style>
+</head>
+<body>
+    <!--Code permettant d'afficher la barre de navigation du site-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ProjetPython</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><a href="habitant/connexion"</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Gestion du compte</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Commande
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="habitant/demande">Réaliser une commande</a>
+                        <a class="dropdown-item" href="habitant/demande-speciale">Réaliser une commande spéciale</a>
+                        <a class="dropdown-item" href="habitant/demande-speciale">Commande en cours</a>
+                        <a class="dropdown-item" href="habitant/demande-speciale">Historique des commandes</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Espace Personnel habitant</h1>
+    <h2> Bienvenue dans votre espace personnel du ProjetPython, 
+    que désirez vous faire ? </h2>
+
+    <!-- bouttons permettant d'accéder aux pages spéciales réaliser une commande et commande spéciale-->
+    <div class="col col-4 mx-auto">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="firstbutton">Réaliser une nouvelle commande</button>
+    </div>
+    <div class="col col-4 mx-auto">
+        <button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="secondbutton">Réaliser une commande spéciale</button>
+    </div>
+
+    <!-- carte permettant l'affichage de la dernière commande passée et de la liste des historiques de commandes-->
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Commande en cours</h5>
+                <p class="card-text">Cette carte doit permettre de faire afficher la commande en cours sous forme de petites liste avec un statut et tout.</p>
+                <p class="card-text"><small class="text-muted">statut de la commande </small></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Dernière commande passée</h5>
+                <p class="card-text">Cette carte doit permettre de faire afficher la dernière commande passée sous forme de petites liste avec un statut et tout.</p>
+                <p class="card-text"><small class="text-muted">statut de la commande </small></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Historique des commandes passées </h5>
+                <p class="card-text">affichage de toutes les commandes passés en indiquant la date de livraison, le nombre de produit et le montant total.</p>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
