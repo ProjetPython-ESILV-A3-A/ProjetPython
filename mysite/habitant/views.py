@@ -23,8 +23,12 @@ def habitantInscription (request):
 		code_postal = request.POST["code-postal"]
 		foyer_n_habitant = request.POST["foyer-n-habitant"]
 		nomsproches = ''
+		for i in range(2,11):
+			if request.POST["nom-"+str(i)] != "":
+				nomsproches += request.POST["nom-"+str(i)] + " " + request.POST["prenom-"+str(i)]+";"
+			else:
+				break
 
-		print(nom,prenom,password,email, tel, n_rue, rue, code_postal, foyer_n_habitant)
 		Nom = nom + " " + prenom
 		adresse = n_rue + " "+ rue + " " + code_postal
 		request = "Insert into `projetpython`.`Demandeur` (`nom`, `email`, `mdp`, `telephone`, `adresse`, `nbprochesfoyer`, `nomsproches`) Values ('"+Nom+"','"+email+"' , '"+password+"','"+tel+"', '"+adresse+"', '"+foyer_n_habitant+"', '"+nomsproches+"');"
