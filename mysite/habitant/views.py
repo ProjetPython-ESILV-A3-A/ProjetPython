@@ -3,17 +3,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 import sys
 sys.path.append('../')
 from DB import *
+from django.contrib.auth import authenticate,login
 
 # Create your views here.
 
 def habitantConnexion (request):
     if request.method == 'GET':
-        return render(request,'/habitant/inscription.html')
+        return render(request,'habitant/connexion.html')
     elif request.method == 'POST':
         email = request.POST["email"]
         password = request.POST["password"]
-        
-        request = "Select id from Admin where email = "+email+" and mdp ="+password+ "
+        request = "Select id from Demandeur where 'email' = '"+email+"' and 'mdp' ='"+password+ "';"
+        IdDemandeur = DB.ConnexionSQLSelect(request)
+        if IdDemandeur is not None:
+            login(request,IdDemandeur)
+            return HttpResponseRedirect('/habitant/espace-personnel.html')
+        else:
+            #l'identifiant demandé n'existe pas
+            return HttpResponseRedirect('/habitant/inscription.html')
 
 def habitantInscription (request):
 	if request.method == 'GET':
@@ -26,7 +33,7 @@ def habitantInscription (request):
 		tel = request.POST["tel"]
 		n_rue = request.POST["n-rue"]
 		rue = request.POST["rue"]
-		code_postal = request.POST["code-postal"]
+		code_postal = request.POST["code-postal"]  
 		foyer_n_habitant = request.POST["foyer-n-habitant"]
 		nomsproches = ''
 
