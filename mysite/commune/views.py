@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from DB import *
+import matplotlib.pyplot as plt
+import io
 
 # Create your views here.
 
@@ -121,6 +123,10 @@ def communevisuchoix(request):
             {
                 "nom": "Visualisation 2",
                 "link": "/commune/Visualisation/2/"
+            },
+            {
+                "nom":"Visualisation plot",
+                "link":"/commune/Visualisation/plot/"
             }
         ],
         "titre":"Selection de la visualisation"
@@ -137,6 +143,27 @@ def communeVisualisation(request,numeroVu):
         "titre":"Option de Visualisation n°"+str(numeroVu)
         }
     return render(request, "commune/communeBase.html", data)
+
+def communeVisualisationplot(request):
+    f=plt.figure(figsize=(6,6))
+    plt.hist([1,1,2,3,4,4,5,1,3])
+    buf=io.BytesIO()
+    plt.savefig(buf,format='svg',bbox_inches='tight')
+    s=buf.getvalue()
+    buf.close()
+    plt.cla()
+    response=HttpResponse(s,content_type='image/svg+xml')
+    plt.close(f)
+    # data={"data": [
+    #         {
+    #             "nom":"retour arriere",
+    #             "link":"/commune/Visualisation/"
+    #         }
+    #     ],
+    #     "titre":"Option de Visualisation n°"+str(numeroVu)
+    #     }
+    # return render(request, "commune/communeBase.html", data)
+    return response
 
 def communevalidsuppr(request,Produitasupprimer):
     data={"data": [

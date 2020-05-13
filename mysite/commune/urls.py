@@ -26,4 +26,5 @@ urlpatterns = [
     path('produits/sub/validation/<Produitasupprimer>/',views.communevalidsuppr,name="retireProd"),
     path('Visualisation/',views.communevisuchoix,name="visuchoix"),
     path('Visualisation/<int:numeroVu>/',views.communeVisualisation,name="visu"),
+    path('Visualisation/plot/',views.communeVisualisationplot,name="visuchoix"),
 ]
