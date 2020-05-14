@@ -74,26 +74,30 @@
 
     <!-- carte permettant l'affichage de la dernière commande passée et de la liste des historiques de commandes-->
     <div class="card-deck">
-        <div class="card">
+        <div class="card text-center">
             <div class="card-body">
                 <h5 class="card-title">Commande en cours</h5>
-                <p class="card-text">Cette carte doit permettre de faire afficher la commande en cours sous forme de petites liste avec un statut et tout.</p>
-                <p class="card-text"><small class="text-muted">statut de la commande </small></p>
-                <a href="#" class="btn btn-secondary">Afficher la commande en cours</a>
+                <p class="card-text"><medium class="text-muted">statut de la commande en cours: <a class="align-middle">{{StatutCommande1}}</a></medium></p>
+                <p class="card-text"><medium class="text-muted">Prix total de la commande  : <a class="align-middle">{{PrixTotalCommande1}}</a></medium></p>
+                <p class="card-text"><medium class="text-muted">Nombre de produit : <a class="align-middle">{{NombreProduitCommande1}}</a></medium></p>
+
+                <a href="#" class="btn btn-secondary align-middle">Afficher la commande en cours</a>
             </div>
         </div>
-        <div class="card">
+        <div class="card text-center">
             <div class="card-body">
                 <h5 class="card-title">Dernière commande passée</h5>
-                <p class="card-text">Cette carte doit permettre de faire afficher la dernière commande passée sous forme de petites liste avec un statut et tout.</p>
-                <p class="card-text"><small class="text-muted">statut de la commande </small></p>
+                <p class="card-text"><medium class="text-muted">Date de livraison: <a class="align-middle">{{DateLivraison}}</a></medium></p>
+                <p class="card-text"><medium class="text-muted">Prix total de la commande : <a class="align-middle">{{PrixTotalCommande1}}</a></medium></p>
+                <p class="card-text"><medium class="text-muted">Nombre de produit : <a class="align-middle">{{NombreProduitCommande1}}</a></medium></p>
                 <a href="#" class="btn btn-secondary">Afficher la dernière commande passée</a>
             </div>
         </div>
-        <div class="card">
+        <div class="card text-center">
             <div class="card-body">
+                <a />
                 <h5 class="card-title">Historique des commandes passées </h5>
-                <p class="card-text">affichage de toutes les commandes passés en indiquant la date de livraison, le nombre de produit et le montant total.</p>
+                <a />
                 <a href="#" class="btn btn-secondary">Afficher l'historique des commandes</a>
             </div>
         </div>
