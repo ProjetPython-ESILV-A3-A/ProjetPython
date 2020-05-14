@@ -65,11 +65,11 @@ def habitantDemande (request):
 			return HttpResponseRedirect("/habitant/paiement/")
 
 
-def habitantSpecial (request):
+def habitantSpecial(request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
 
-def habitantPanier (request):
-		return HttpResponse("Page pour visualiser le panier des habitants")
+def habitantCommandeEnCours(request):
+		return HttpResponse("Page pour visualiser la commande en cours")
 
 def habitantPaiement (request):
 		return HttpResponse("Page attribué au paiement des commandes")

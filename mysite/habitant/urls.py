@@ -23,6 +23,8 @@ urlpatterns = [
     path('espace-personnel/', views.habitantEspacePerso, name='espace%20personnel'),
     path('demande/',views.habitantDemande, name='demande'),
     path('special/',views.habitantSpecial, name='special'),
-    path('panier/',views.habitantPanier, name='panier'),
+    path('commande-en-cours/',views.habitantCommandeEnCours, name='commande-en-cours'),
     path('paiement/',views.habitantPaiement, name='paiement'),
+    path('derniere-commande/',views.habitantDerniereCommande, name ='Derniere-commande'),
+    path('historique-commande/',views.habitantHistoriqueCommandes, name='Historique-commandes')
 ]
