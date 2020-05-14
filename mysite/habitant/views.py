@@ -84,7 +84,7 @@ def habitantDemande (request):
 			if(request.POST[element]!='0'):
 				DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.POST[element])+");")
 		request.session['username']=idcommande[0][0]
-		return HttpResponseRedirect("/habitant/paiement/")
+		return HttpResponseRedirect("/habitant/espace-personnel/")
 
 def habitantDerniereCommande(request):
 	listedataproduits=[]
@@ -109,26 +109,27 @@ def habitantDerniereCommande(request):
 			idClient = request.session["username"]"""
 
 def habitantCommandeEnCours (request):
-	listedataproduits=[]
+	if request.session.has_key('username'):
+		listedataproduits=[]
 
-	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
-	for produit in listeproduitsbrute:
-		listedataproduits.append({
-		"produitId":produit[0],
-		"NomProduit":produit[1],
-		"CatégorieProduit":produit[2],
-		"PrixProduit":produit[3],
-		"Nombre":produit[4]
-		})
-	data={"produits": listedataproduits}
-	if request.method=='GET':
-		# for element in listeproduitsbrute:
-		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
-		if str(request.GET)=="<QueryDict: {}>":
-			data["Title"]="Produits proposés"
-			return render(request, "habitant/commande-en-cours.html", data)
-		"""else:
-			idClient = request.session["username"]"""
+		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur='"+str(request.session['username'])+"' AND produit.id=idProduit AND idCommande=commande.id AND commande.id=(SELECT MAX(id) FROM commande WHERE idDemandeur='"+str(request.session['username'])+"');")
+		for produit in listeproduitsbrute:
+			listedataproduits.append({
+			"produitId":produit[0],
+			"NomProduit":produit[1],
+			"CatégorieProduit":produit[2],
+			"PrixProduit":produit[3],
+			"Nombre":produit[4]
+			})
+		data={"produits": listedataproduits}
+		if request.method=='GET':
+			# for element in listeproduitsbrute:
+			# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
+			if str(request.GET)=="<QueryDict: {}>":
+				data["Title"]="Produits proposés"
+				return render(request, "habitant/commande-en-cours.html", data)
+	else:
+		return HttpResponseRedirect("/habitant/connexion/")
 
 def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
