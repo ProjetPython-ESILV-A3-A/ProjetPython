@@ -3,24 +3,26 @@ from django.http import HttpResponse, HttpResponseRedirect
 import sys
 sys.path.append('../')
 from DB import *
-from django.contrib.auth import authenticate,login
 
 # Create your views here.
 
 def habitantConnexion (request):
-    if request.method == 'GET':
-        return render(request,'habitant/connexion.html')
-    elif request.method == 'POST':
-        email = request.POST["email"]
-        password = request.POST["password"]
-        request = "Select id from Demandeur where 'email' = '"+email+"' and 'mdp' ='"+password+ "';"
-        IdDemandeur = DB.ConnexionSQLSelect(request)
-        if IdDemandeur is not None:
-            request.session['username']=IdDemandeur[0][0]
-            return HttpResponseRedirect('/habitant/espace-personnel.html')
-        else:
-            #l'identifiant demandé n'existe pas
-            return HttpResponseRedirect('/habitant/inscription.html')
+	if request.method == 'GET':
+		return render(request,'habitant/connexion.html')
+	elif request.method == 'POST':
+		email = request.POST["email"]
+		password = request.POST["password"]
+		requete = "Select id from Demandeur where email = '"+email+"' and mdp ='"+password+ "';"
+		print("email:"+email)
+		IdDemandeur = DB.ConnexionSQLSelect(requete)
+		if IdDemandeur!=[]:
+			print(IdDemandeur)
+			request.session.set_expiry(600)
+			request.session['username']=IdDemandeur[0][0]
+			return HttpResponseRedirect('/habitant/espace-personnel/')
+		else:
+			#l'identifiant demandé n'existe pas
+			return HttpResponseRedirect('/habitant/connexion/')
 
 def habitantInscription (request):
 	if request.method == 'GET':
@@ -47,11 +49,11 @@ def habitantInscription (request):
 
 
 def habitantEspacePerso (request):
-		request.session.set_expiry(300)#5 minutes avant que la session n'expire
+		request.session.set_expiry(600)#10 minutes avant que la session n'expire
 		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
 def habitantDemande (request):
-	request.session.set_expiry(300)
+	request.session.set_expiry(600)
 	listedataproduits=[]
 
 	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,categorie, prix FROM produit")
