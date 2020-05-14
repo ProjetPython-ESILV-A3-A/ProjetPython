@@ -1,38 +1,51 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-	<title>Votre espace personnel</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<style type="text/css">
-		form{
-			margin-top: 10rem;
-		}
-		.form-row{
-			margin-bottom: 1.5rem;
-		}
-		h1{
-			margin-bottom: 1.5rem;
-            text-align : center;
-		}
-        h2{
-            font-size : larger;
-        }
-        nav {margin-bottom : 20px}
-        #firstbutton {
-            margin-top : 30px;
-            margin-bottom : 30px}
-        #secondbutton {margin-bottom : 30px}
-        h5{text-align : center;
+    <title>Votre espace personnel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style type="text/css">
+        form {
+            margin-top: 10rem;
         }
 
-	</style>
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: larger;
+        }
+
+        nav {
+            margin-bottom: 20px
+        }
+
+        #firstbutton {
+            margin-top: 30px;
+            margin-bottom: 30px
+        }
+
+        #secondbutton {
+            margin-bottom: 30px
+        }
+
+        h5 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <!--Code permettant d'afficher la barre de navigation du site-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">ProjetPython</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><a href="espace-personnel/"</span>
+            <span class="navbar-toggler-icon"><a href="espace-personnel/"></a></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -47,32 +60,35 @@
                         Commande
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="demande/">Réaliser une commande</a>
-                        <a class="dropdown-item" href="habitant/demande-speciale/">Réaliser une commande spéciale</a>
-                        <a class="dropdown-item" href="habitant/commande-en-cours/">Commande en cours</a>
-                        <a class="dropdown-item" href="habitant/historique-commande/">Historique des commandes</a>
+                        <a class="dropdown-item" href="/habitant/demande/">Realiser une commande</a>
+                        <a class="dropdown-item" href="/habitant/special/">Realiser une commande speciale</a>
+                        <a class="dropdown-item" href="/habitant/commande-en-cours/">Commande en cours</a>
+                        <a class="dropdown-item" href="/habitant/historique-commande/">Historique des commandes</a>
                     </div>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" href="habitant/connexion/">Déconnexion</button>
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="/habitant/connexion/">Deconnexion</a>
             </form>
         </div>
     </nav>
 
     <h1>Espace Personnel habitant</h1>
-    <h2> Bienvenue dans votre espace personnel du ProjetPython, 
-    que désirez vous faire ? </h2>
+    <h2>
+        Bienvenue dans votre espace personnel du ProjetPython,
+        que desirez vous faire ?
+    </h2>
 
-    <!-- bouttons permettant d'accéder aux pages spéciales réaliser une commande et commande spéciale-->
+    <!-- bouttons permettant d'acceder aux pages speciales realiser une commande et commande speciale-->
     <div class="col col-4 mx-auto">
-        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="firstbutton" href="habitant/demande/">Réaliser une nouvelle commande</button>
+        <a type="button" class="btn btn-outline-primary btn-lg btn-block" id="firstbutton" href="/habitant/demande/">Realiser une nouvelle commande
+        </a>
     </div>
     <div class="col col-4 mx-auto">
-        <button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="secondbutton" href="habitant/demande-speciale">Réaliser une commande spéciale</button>
+        <a type="button" class="btn btn-outline-secondary btn-lg btn-block" id="secondbutton" href="/habitant/special/">Realiser une commande speciale</a>
     </div>
 
-    <!-- carte permettant l'affichage de la dernière commande passée et de la liste des historiques de commandes-->
+    <!-- carte permettant l'affichage de la derniere commande passee et de la liste des historiques de commandes-->
     <div class="card-deck">
         <div class="card text-center">
             <div class="card-body">
@@ -81,22 +97,22 @@
                 <p class="card-text"><medium class="text-muted">Prix total de la commande  : <a class="align-middle">{{PrixTotalCommande1}}</a></medium></p>
                 <p class="card-text"><medium class="text-muted">Nombre de produit : <a class="align-middle">{{NombreProduitCommande1}}</a></medium></p>
 
-                <a href="habitant/commande-en-cours/" class="btn btn-secondary align-middle">Afficher la commande en cours</a>
+                <a href="/habitant/commande-en-cours/" class="btn btn-secondary align-middle">Afficher la commande en cours</a>
             </div>
         </div>
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Dernière commande passée</h5>
+                <h5 class="card-title">Derniere commande passee</h5>
                 <p class="card-text"><medium class="text-muted">Date de livraison: <a class="align-middle">{{DateLivraison}}</a></medium></p>
                 <p class="card-text"><medium class="text-muted">Prix total de la commande : <a class="align-middle">{{PrixTotalCommande1}}</a></medium></p>
                 <p class="card-text"><medium class="text-muted">Nombre de produit : <a class="align-middle">{{NombreProduitCommande1}}</a></medium></p>
-                <a href="habitant/derniere-commande/" class="btn btn-secondary">Afficher la dernière commande passée</a>
+                <a href="/habitant/derniere-commande/" class="btn btn-secondary">Afficher la derniere commande passee</a>
             </div>
         </div>
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Historique des commandes passées </h5>
-                <a href="habitant/historique-commande/" class="btn btn-secondary">Afficher l'historique des commandes</a>
+                <h5 class="card-title">Historique des commandes passees </h5>
+                <a href="/habitant/historique-commande/" class="btn btn-secondary">Afficher l'historique des commandes</a>
             </div>
         </div>
     </div>

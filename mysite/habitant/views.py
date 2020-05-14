@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+
 import sys
 sys.path.append('../')
 from DB import *
@@ -49,8 +51,10 @@ def habitantInscription (request):
 
 
 def habitantEspacePerso (request):
-		request.session.set_expiry(600)#10 minutes avant que la session n'expire
-		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
+	if request.method=='GET' and str(request.GET)!="<QueryDict: {}>":
+		print(request.GET)
+	request.session.set_expiry(600)#10 minutes avant que la session n'expire
+	return render(request,"habitant/espace-personnel.html",{"data":""})
 
 def habitantDemande (request):
 	request.session.set_expiry(600)
@@ -83,47 +87,47 @@ def habitantDemande (request):
 		return HttpResponseRedirect("/habitant/paiement/")
 
 def habitantDerniereCommande(request):
-    listedataproduits=[]
-    
-    listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
-    for produit in listeproduitsbrute:
-        listedataproduits.append({
+	listedataproduits=[]
+
+	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
+	for produit in listeproduitsbrute:
+		listedataproduits.append({
 		"produitId":produit[0],
 		"NomProduit":produit[1],
 		"CatégorieProduit":produit[2],
 		"PrixProduit":produit[3],
-        "Nombre":produit[4]
-        })
-    data={"produits": listedataproduits}
-    if request.method=='GET':
+		"Nombre":produit[4]
+		})
+	data={"produits": listedataproduits}
+	if request.method=='GET':
 		# for element in listeproduitsbrute:
 		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
-        if str(request.GET)=="<QueryDict: {}>":
-            data["Title"]="Produits proposés"
-            return render(request, "habitant/commande-en-cours.html", data)
-        """else:
+		if str(request.GET)=="<QueryDict: {}>":
+			data["Title"]="Produits proposés"
+			return render(request, "habitant/commande-en-cours.html", data)
+		"""else:
 			idClient = request.session["username"]"""
-            
+
 def habitantCommandeEnCours (request):
-    listedataproduits=[]
-    
-    listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
-    for produit in listeproduitsbrute:
-        listedataproduits.append({
+	listedataproduits=[]
+
+	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
+	for produit in listeproduitsbrute:
+		listedataproduits.append({
 		"produitId":produit[0],
 		"NomProduit":produit[1],
 		"CatégorieProduit":produit[2],
 		"PrixProduit":produit[3],
-        "Nombre":produit[4]
-        })
-    data={"produits": listedataproduits}
-    if request.method=='GET':
+		"Nombre":produit[4]
+		})
+	data={"produits": listedataproduits}
+	if request.method=='GET':
 		# for element in listeproduitsbrute:
 		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
-        if str(request.GET)=="<QueryDict: {}>":
-            data["Title"]="Produits proposés"
-            return render(request, "habitant/commande-en-cours.html", data)
-        """else:
+		if str(request.GET)=="<QueryDict: {}>":
+			data["Title"]="Produits proposés"
+			return render(request, "habitant/commande-en-cours.html", data)
+		"""else:
 			idClient = request.session["username"]"""
 
 def habitantSpecial (request):
@@ -132,3 +136,20 @@ def habitantSpecial (request):
 def habitantPaiement (request):
 		return HttpResponse("Page attribuée au paiement des commandes")
 
+def habitantHistoriqueCommandes(request):
+	user=request.session['username']
+	listedataproduits=[]
+
+	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, sum(prix),sum(quantiteDemandee) FROM produit,souscommande,commande WHERE idDemandeur="+str(user)+" AND produit.id=idProduit AND idCommande=commande.id;")
+	for produit in listeproduitsbrute:
+		listedataproduits.append({
+		"IdCommande":produit[0],
+		"DateCommande":produit[1],
+		"DateLivraison":produit[2],
+		"PrixTotalCommande":produit[3],
+		"NombreProduit":produit[4]
+		})
+	data={"produits": listedataproduits}
+	if request.method=='GET':
+		data["Title"]="Produits proposés"
+		return render(request, "habitant/commande-en-cours.html", data)
