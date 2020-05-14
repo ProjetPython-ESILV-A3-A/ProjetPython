@@ -16,7 +16,7 @@ def habitantConnexion (request):
         request = "Select id from Demandeur where 'email' = '"+email+"' and 'mdp' ='"+password+ "';"
         IdDemandeur = DB.ConnexionSQLSelect(request)
         if IdDemandeur is not None:
-            login(request,IdDemandeur)
+            request.session['username']=IdDemandeur[0][0]
             return HttpResponseRedirect('/habitant/espace-personnel.html')
         else:
             #l'identifiant demandé n'existe pas
@@ -33,7 +33,7 @@ def habitantInscription (request):
 		tel = request.POST["tel"]
 		n_rue = request.POST["n-rue"]
 		rue = request.POST["rue"]
-		code_postal = request.POST["code-postal"]  
+		code_postal = request.POST["code-postal"]
 		foyer_n_habitant = request.POST["foyer-n-habitant"]
 		nomsproches = ''
 
