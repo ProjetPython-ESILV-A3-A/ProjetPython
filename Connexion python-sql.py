@@ -193,4 +193,77 @@ def Commandes(ID_DEMANDEUR):
     else :
         print("La commande en cours de ce client est "+str(commande))
 
-Commandes(1)
+
+#Indique le prix totale d'une commande ainsi que le nombre de produits dans la commande
+def PrixTotaleEtQteCommande(ID_COMMANDE):
+    requete = "select P.prix,S.quantiteDemandee from SousCommande S JOIN Produit P ON S.idProduit=P.id where S.idCommande= " +str(ID_COMMANDE)+ " ;"
+    produitsTab = ConnexionSQLSelect(requete)
+    prixTot=0
+    
+    for produit in produitsTab:
+        prixProd=produit[0]
+        qte=produit[1]
+        prixTot+=prixProd*qte
+    
+    
+    nbproduits = len(produitsTab)
+    return prixTot,nbproduits
+
+def CommandeLaPlusRecente(ID_DEMANDEUR):
+    requete = "select max(dateCommande) from Commande where idDemandeur= "+str(ID_DEMANDEUR)+" ;"
+    dateMaxTab = ConnexionSQLSelect(requete)
+    dateMax = dateMaxTab[0][0]
+    
+    requete = "select id from Commande where dateCommande = '"+dateMax+"' ;"
+    idDateMaxTab = ConnexionSQLSelect(requete)
+    idDateMax = idDateMaxTab[0][0]
+    
+    return idDateMax     
+        
+def LstProduitsDeCommande(ID_COMMANDE):
+    requete = "select S.quantiteDemandee,P.unite,P.nom from Produit P JOIN SousCommande S ON P.id = S.idProduit where S.idCommande = "+str(ID_COMMANDE)+" ;"
+    produitsTab = ConnexionSQLSelect(requete)
+    return produitsTab
+
+def HistoriqueCommande(ID_DEMANDEUR):
+    requete ="select id from Commande where idDemandeur = "+str(ID_DEMANDEUR)+" ;"
+    idCommandesTab = ConnexionSQLSelect(requete)
+    historique=[]
+    
+    for commande in idCommandesTab:
+        idcommande = commande[0]
+        lstProd = LstProduitsDeCommande(idcommande)
+        prix,nbproduits = PrixTotaleEtQteCommande(idcommande)
+        
+        historique.append([idcommande,lstProd,prix,nbproduits])
+        #EXEMPLE : [[1 , [(2,"g","banane"),(4,"kg","legumes secs")], 15.4euros , 2], [...], ]
+    return historique
+
+def AffichageHistorique(ID_DEMANDEUR):
+    historique = HistoriqueCommande(ID_DEMANDEUR)
+    nbcommandes = len(historique)
+    print("Cet utilisateur a fait "+str(nbcommandes)+" commandes !")
+    print()
+    
+    for commande in historique:
+        print("Commande numéro : "+ str(commande[0]))
+        print("LISTE PRODUITS DU PANIER : ")
+        print(AffichageListe(commande[1]))
+        print()
+        print("Pour un prix de "+str(commande[2])+" euros.")
+        print("Total des articles : "+str(commande[3]))
+        print("---------------------------------------------")
+
+def AffichageListe(liste):
+    listeStr=""
+    for produit in liste:
+        listeStr+="-"+str(produit[0])+" "+str(produit[1])+" de "+str(produit[2])+"\n"
+    return listeStr
+        
+#Commandes(1)
+#prixTotale,nbproduits = PrixTotaleEtQteCommande(1)
+#print("le prix est de "+str(prixTotale)+" euros pour "+str(nbproduits)+" produits achetés.")
+#idDateMax = CommandeLaPlusRecente(1)
+#print(idDateMax)
+#HistoriqueCommande(1)
+AffichageHistorique(1)
