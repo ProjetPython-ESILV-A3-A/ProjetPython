@@ -11,6 +11,7 @@ import random
 import pandas as pd
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
+from datetime import datetime,timedelta,date
 
 def ConnexionSQLSelect(requete):
     madb = mysql.connector.connect(
@@ -83,7 +84,9 @@ infos = ConnexionSQLSelect(requeteSelect)
 
 def GenererPanierAleatoire(ID_DEMANDEUR,NB_PRODUITS):
 
-    requete1 = "INSERT INTO `projetpython`.`Commande` (`idDemandeur`) VALUES ("+str(ID_DEMANDEUR)+");"
+    aujourdhui = datetime.now()
+    aujourdhuiString = aujourdhui.strftime('%m/%d/%y')
+    requete1 = "INSERT INTO `projetpython`.`Commande` (`idDemandeur`,`dateCommande`) VALUES ("+str(ID_DEMANDEUR)+" , '"+aujourdhuiString+"');"
     ConnexionSQL(requete1)
     requeteId = "select max(id) from Commande"
     idTab = ConnexionSQLSelect(requeteId)
@@ -143,4 +146,51 @@ def Apriori():
     val = float(x['support'])
     #return val
     
-Apriori()
+#Apriori()
+
+#Indique si une commande est en cours(false) de livraion ou si elle est arrivée(true)
+def EtatCommande(idCommande):
+    arrive=True
+    
+    requeteSelect="select dateCommande from Commande where id = "+str(idCommande)+" ;"
+    tab = ConnexionSQLSelect(requeteSelect)
+    dateString = tab[0][0]
+
+    dateCommande = datetime.strptime(dateString,'%m/%d/%y')    
+    aujourdhui= datetime.now()
+    
+    annee = aujourdhui.year-dateCommande.year
+    if(annee == 0):
+        mois = aujourdhui.month-dateCommande.month
+        if(mois == 0):
+            jours = aujourdhui.day-dateCommande.day
+            if(jours<3):
+                arrive=False
+    
+    return arrive
+
+#Indique la commande en cours de l'utilisateur et -1 si aucune commande n'est en cours,-2 si il n'a aucune commande tout cours
+def CommandeEnCours(ID_DEMANDEUR):
+    requete = "select id from Commande where idDemandeur = "+str(ID_DEMANDEUR)+" ;"
+    idCommandes = ConnexionSQLSelect(requete)
+    if(len(idCommandes)==0):
+        return -2
+    else:
+        for commande in idCommandes:
+            commande = commande[0]
+            if(EtatCommande(commande) == False):
+                return commande
+        return -1
+
+
+
+def Commandes(ID_DEMANDEUR):
+    commande = CommandeEnCours(ID_DEMANDEUR)
+    if(commande==-2):
+        print("Ce client n'a effectue aucune commande")
+    elif(commande==-1):
+        print("Ce client n'a pas de commande en cours")
+    else :
+        print("La commande en cours de ce client est "+str(commande))
+
+Commandes(1)
