@@ -34,9 +34,11 @@ def habitantInscription (request):
 
 
 def habitantEspacePerso (request):
+		request.session.set_expiry(300)#5 minutes avant que la session n'expire
 		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
 def habitantDemande (request):
+	request.session.set_expiry(300)
 	listedataproduits=[]
 
 	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,categorie, prix FROM produit")
@@ -60,6 +62,7 @@ def habitantDemande (request):
 		for element in request.POST:
 			if(request.POST[element]!='0'):
 				DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.POST[element])+");")
+		request.session['username']=idcommande[0][0]
 		return HttpResponseRedirect("/habitant/paiement/")
 
 
@@ -67,8 +70,8 @@ def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
 
 def habitantPanier (request):
-		return HttpResponse("Page pour visualiser le panier des habitants")
+		return HttpResponse("Page pour visualiser le panier des habitants + debug"+str(request.session['username']))
 
 def habitantPaiement (request):
-		return HttpResponse("Page attribué au paiement des commandes")
+		return HttpResponse("Page attribué au paiement des commandes + (pr le debug) : "+str(request.session['username']))
 

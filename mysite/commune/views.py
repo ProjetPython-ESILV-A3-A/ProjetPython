@@ -145,8 +145,17 @@ def communeVisualisation(request,numeroVu):
     return render(request, "commune/communeBase.html", data)
 
 def communeVisualisationplot(request):
-    f=plt.figure(figsize=(6,6))
-    plt.hist([1,1,2,3,4,4,5,1,3])
+    f=plt.figure(figsize=(16,6))
+    produits=[]
+    nombreProduits=[]
+    requete="SELECT SUM(quantiteDemandee),nom FROM souscommande,produit WHERE idProduit=produit.id GROUP BY idProduit;"
+    resultat=DB.ConnexionSQLSelect(requete)
+    for element in resultat:
+        produits.append(str(element[1]))
+        nombreProduits.append(int(element[0]))
+    produits.append("")
+    nombreProduits.append(0)
+    plt.hist(produits,bins=len(produits)-1,weights=nombreProduits,align='left')
     buf=io.BytesIO()
     plt.savefig(buf,format='svg',bbox_inches='tight')
     s=buf.getvalue()
