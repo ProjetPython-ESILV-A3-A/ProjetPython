@@ -64,7 +64,33 @@ def habitantDemande (request):
 					DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.GET[element])+");")
 			return HttpResponseRedirect("/habitant/paiement/")
 
+def habitantCommandeEnCours (request):
+    listedataproduits=[]
 
+	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
+	for produit in listeproduitsbrute:
+		listedataproduits.append({
+		"produitId":produit[0],
+		"NomProduit":produit[1],
+		"CatégorieProduit":produit[2],
+		"PrixProduit":produit[3],
+        "Nombre":produit[4]
+        })
+	data={"produits": listedataproduits}
+	if request.method=='GET':
+		# for element in listeproduitsbrute:
+		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
+		if str(request.GET)=="<QueryDict: {}>":
+			data["Title"]="Produits proposés"
+			return render(request, "habitant/commande-en-cours.html", data)
+		"""else:
+			idClient = request.session["username"]"""
+			
+    
+    
+    
+    
+    
 def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
 
