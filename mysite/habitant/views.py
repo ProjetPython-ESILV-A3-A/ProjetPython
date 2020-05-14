@@ -49,12 +49,14 @@ def habitantDemande (request):
 		"CatégorieProduit":produit[2],
 		"PrixProduit":produit[3]})
 	data={"produits": listedataproduits}
-	if request.method=='GET':
+	if not(request.session.has_key('username')):
+		return HttpResponseRedirect("/habitant/connexion/")
+	elif request.method=='GET':
 		if str(request.GET)=="<QueryDict: {}>":
 			data["Title"]="Produits proposés"
 			return render(request, "habitant/demande.html", data)
 	elif request.method=='POST':
-		idClient = 1
+		idClient = request.session['username']
 		requete = "INSERT INTO commande (idDemandeur) VALUES ("+str(idClient)+");"
 		DB.RequestSQL(requete)
 		requeteId = "SELECT MAX(id) FROM commande WHERE idDemandeur="+str(idClient)+";";
@@ -70,8 +72,8 @@ def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
 
 def habitantPanier (request):
-		return HttpResponse("Page pour visualiser le panier des habitants + debug"+str(request.session['username']))
+		return HttpResponse("Page pour visualiser le panier des habitants")
 
 def habitantPaiement (request):
-		return HttpResponse("Page attribué au paiement des commandes + (pr le debug) : "+str(request.session['username']))
+		return HttpResponse("Page attribuée au paiement des commandes")
 
