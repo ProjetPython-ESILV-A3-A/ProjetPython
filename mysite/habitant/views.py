@@ -64,7 +64,7 @@ def habitantDemande (request):
 					DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.GET[element])+");")
 			return HttpResponseRedirect("/habitant/paiement/")
 
-def habitantCommandeEnCours (request):
+def habitantDerniereCommande(request):
     listedataproduits=[]
     
     listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
@@ -85,10 +85,9 @@ def habitantCommandeEnCours (request):
             return render(request, "habitant/commande-en-cours.html", data)
         """else:
 			idClient = request.session["username"]"""
-    
+
 def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
-
 
 def habitantPaiement (request):
 		return HttpResponse("Page attribué au paiement des commandes")
