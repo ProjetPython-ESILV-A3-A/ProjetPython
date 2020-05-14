@@ -3,11 +3,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 import sys
 sys.path.append('../')
 from DB import *
+from django.contrib.auth import authenticate,login
 
 # Create your views here.
 
 def habitantConnexion (request):
-		return HttpResponse("Page de connexion pour les habitants")
+    if request.method == 'GET':
+        return render(request,'habitant/connexion.html')
+    elif request.method == 'POST':
+        email = request.POST["email"]
+        password = request.POST["password"]
+        request = "Select id from Demandeur where 'email' = '"+email+"' and 'mdp' ='"+password+ "';"
+        IdDemandeur = DB.ConnexionSQLSelect(request)
+        if IdDemandeur is not None:
+            request.session['username']=IdDemandeur[0][0]
+            return HttpResponseRedirect('/habitant/espace-personnel.html')
+        else:
+            #l'identifiant demandé n'existe pas
+            return HttpResponseRedirect('/habitant/inscription.html')
 
 def habitantInscription (request):
 	if request.method == 'GET':
