@@ -21,6 +21,37 @@
     </style>
 </head>
 <body>
+    <!--Code permettant d'afficher la barre de navigation du site-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ProjetPython</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><a href="espace-personnel/"</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Gestion du compte</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Commande
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="demande/">Réaliser une commande</a>
+                        <a class="dropdown-item" href="habitant/demande-speciale/">Réaliser une commande spéciale</a>
+                        <a class="dropdown-item" href="habitant/commande-en-cours/">Commande en cours</a>
+                        <a class="dropdown-item" href="habitant/historique-commande/">Historique des commandes</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" href="habitant/connexion/">Déconnexion</button>
+            </form>
+        </div>
+    </nav>
     <h1>Historique de vos commandes</h1>
 
     <div class="col col-8 mx-auto">
@@ -28,6 +59,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Numéro de la commande</th>
                         <th scope="col">date de commande</th>
                         <th scope="col">date de livraison</th>
                         <th scope="col">Prix total de la commande</th>
@@ -37,7 +69,8 @@
                 <tbody>
                     {%for objet in produits%}
                     <tr>
-                        <th scope="row" class="align-middle">{{objet.DateCommande}}</th>
+                        <th scope="row" class="align-middle">{{objet.NumeroCommande}}</th>
+                        <td class="align-middle">{{objet.DateCommande}}</td>
                         <td class="align-middle">{{objet.DateLivraison}}</td>
                         <td class="align-middle">{{objet.PrixTotalCommande}}</td>
                         <td class="align-middle">{{objet.NombreProduit}}</td>
