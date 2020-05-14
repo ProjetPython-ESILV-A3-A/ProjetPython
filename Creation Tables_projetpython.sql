@@ -1,10 +1,10 @@
 use `projetpython`;
 
+drop table if exists SousCommande;
+drop table if exists commande;
 drop table if exists Demandeur;
 drop table if exists Admin;
 drop table if exists produit;
-drop table if exists commande;
-drop table if exists SousCommande;
 
 create table `projetpython`.`Demandeur`(
 `id` int not null auto_increment,

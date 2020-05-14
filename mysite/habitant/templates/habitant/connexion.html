@@ -17,24 +17,26 @@
 </head>
 <body>
 	<div class="col col-4 mx-auto">	
-		<form>
-			<h1>Connexion</h1>
-			<div class="form-row">
-				<div class="col-10 mx-auto">
-					<input class="form-control" type="email" required name="email" placeholder="Email">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="col-10 mx-auto">
-					<input class="form-control" type="password" required name="password" placeholder="Mot de passe">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="col-10 mx-auto">
-					<input class="form-control btn btn-primary" type="submit" value="Se connecter">
-				</div>
-			</div>
-		</form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <h1>Connexion</h1>
+            <div class="form-row">
+                <div class="col-10 mx-auto">
+                    <input class="form-control" type="email" required name="email" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-10 mx-auto">
+                    <input class="form-control" type="password" required name="password" placeholder="Mot de passe">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-10 mx-auto">
+                    <input class="form-control btn btn-primary" type="submit" value="Se connecter">
+                </div>
+            </div>
+        </form>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

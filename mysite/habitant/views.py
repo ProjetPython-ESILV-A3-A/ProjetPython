@@ -7,7 +7,22 @@ from DB import *
 # Create your views here.
 
 def habitantConnexion (request):
-		return HttpResponse("Page de connexion pour les habitants")
+	if request.method == 'GET':
+		return render(request,'habitant/connexion.html')
+	elif request.method == 'POST':
+		email = request.POST["email"]
+		password = request.POST["password"]
+		requete = "Select id from Demandeur where email = '"+email+"' and mdp ='"+password+ "';"
+		print("email:"+email)
+		IdDemandeur = DB.ConnexionSQLSelect(requete)
+		if IdDemandeur!=[]:
+			print(IdDemandeur)
+			request.session.set_expiry(600)
+			request.session['username']=IdDemandeur[0][0]
+			return HttpResponseRedirect('/habitant/espace-personnel/')
+		else:
+			#l'identifiant demandé n'existe pas
+			return HttpResponseRedirect('/habitant/connexion/')
 
 def habitantInscription (request):
 	if request.method == 'GET':
@@ -34,9 +49,11 @@ def habitantInscription (request):
 
 
 def habitantEspacePerso (request):
+		request.session.set_expiry(600)#10 minutes avant que la session n'expire
 		return HttpResponse("Page d'accueil de l'espace personnel des habitants")
 
 def habitantDemande (request):
+	request.session.set_expiry(600)
 	listedataproduits=[]
 
 	listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,categorie, prix FROM produit")
@@ -47,22 +64,23 @@ def habitantDemande (request):
 		"CatégorieProduit":produit[2],
 		"PrixProduit":produit[3]})
 	data={"produits": listedataproduits}
-	if request.method=='GET':
-		# for element in listeproduitsbrute:
-		# 	titre+=str(element[0])+","+request.GET[str(element[0])+',Quantite']+";"
+	if not(request.session.has_key('username')):
+		return HttpResponseRedirect("/habitant/connexion/")
+	elif request.method=='GET':
 		if str(request.GET)=="<QueryDict: {}>":
 			data["Title"]="Produits proposés"
 			return render(request, "habitant/demande.html", data)
-		else:
-			idClient = 1
-			requete = "INSERT INTO commande (idDemandeur) VALUES ("+str(idClient)+");"
-			DB.RequestSQL(requete)
-			requeteId = "SELECT MAX(id) FROM commande WHERE idDemandeur="+str(idClient)+";";
-			idcommande = DB.ConnexionSQLSelect(requeteId)
-			for element in request.GET:
-				if(request.GET[element]!='0'):
-					DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.GET[element])+");")
-			return HttpResponseRedirect("/habitant/paiement/")
+	elif request.method=='POST':
+		idClient = request.session['username']
+		requete = "INSERT INTO commande (idDemandeur) VALUES ("+str(idClient)+");"
+		DB.RequestSQL(requete)
+		requeteId = "SELECT MAX(id) FROM commande WHERE idDemandeur="+str(idClient)+";";
+		idcommande = DB.ConnexionSQLSelect(requeteId)
+		for element in request.POST:
+			if(request.POST[element]!='0'):
+				DB.RequestSQL("INSERT INTO souscommande(`idCommande`,`idProduit`,`quantiteDemandee`) VALUES ("+str(idcommande[0][0])+",'"+str(element)+"',"+str(request.POST[element])+");")
+		request.session['username']=idcommande[0][0]
+		return HttpResponseRedirect("/habitant/paiement/")
 
 def habitantDerniereCommande(request):
     listedataproduits=[]
@@ -90,5 +108,5 @@ def habitantSpecial (request):
 		return HttpResponse("Page pour les demandes spéciales des habitants")
 
 def habitantPaiement (request):
-		return HttpResponse("Page attribué au paiement des commandes")
+		return HttpResponse("Page attribuée au paiement des commandes")
 

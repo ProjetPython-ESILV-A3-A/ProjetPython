@@ -22,7 +22,9 @@
 		</h1>
 	</div>
 	<div class="col col-4 mx-auto">	
-		<form>
+		<form method="post">
+			{% csrf_token %}
+			{{ form }}
 			<table class="table">
 				<thead>
 					<tr>
