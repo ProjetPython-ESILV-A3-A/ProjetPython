@@ -10,6 +10,7 @@ from DB import *
 
 def habitantConnexion (request):
 	if request.method == 'GET':
+		request.session.flush()
 		return render(request,'habitant/connexion.html')
 	elif request.method == 'POST':
 		email = request.POST["email"]
