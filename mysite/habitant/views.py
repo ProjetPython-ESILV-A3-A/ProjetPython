@@ -6,6 +6,15 @@ import sys
 sys.path.append('../')
 from DB import *
 
+#Fonction de test de connexion :
+def TestConnexion(request):
+	if request.session.has_key('username'):
+		if request.session.has_key('motDePasse'):
+			requete="SELECT id FROM Demandeur WHERE id=" + str(request.session['username']) + " AND mdp='" + str(request.session['motDePasse']) + "';"
+			resultat=DB.ConnexionSQLSelect(requete)
+			if resultat!=[[]]:
+				return True
+	return False
 # Create your views here.
 
 def habitantConnexion (request):
@@ -15,13 +24,14 @@ def habitantConnexion (request):
 	elif request.method == 'POST':
 		email = request.POST["email"]
 		password = request.POST["password"]
-		requete = "Select id from Demandeur where email = '"+email+"' and mdp ='"+password+ "';"
+		requete = "Select id,mdp from Demandeur where email = '"+email+"' and mdp ='"+password+ "';"
 		print("email:"+email)
 		IdDemandeur = DB.ConnexionSQLSelect(requete)
 		if IdDemandeur!=[]:
 			print(IdDemandeur)
 			request.session.set_expiry(600)
 			request.session['username']=IdDemandeur[0][0]
+			request.session['motDePasse']=IdDemandeur[0][1]
 			return HttpResponseRedirect('/habitant/espace-personnel/')
 		else:
 			#l'identifiant demandé n'existe pas
@@ -47,12 +57,18 @@ def habitantInscription (request):
 		adresse = n_rue + " "+ rue + " " + code_postal
 		request = "Insert into `projetpython`.`Demandeur` (`nom`, `email`, `mdp`, `telephone`, `adresse`, `nbprochesfoyer`, `nomsproches`) Values ('"+Nom+"','"+email+"' , '"+password+"','"+tel+"', '"+adresse+"', '"+foyer_n_habitant+"', '"+nomsproches+"');"
 		DB.RequestSQL(request)
+		#On selectione l'ID du nouvel
+		requete = "Select id,mdp from Demandeur where email = '"+email+"' and mdp ='"+password+ "';"
+		print("email:"+email)
+		IdDemandeur = DB.ConnexionSQLSelect(requete)
+		request.session['username']=IdDemandeur[0][0]
+		request.session['motDePasse']=IdDemandeur[0][1]
 		return HttpResponseRedirect('/habitant/espace-personnel/')
 		# renvoyer vers EspacePerso (code 302)
 
 
 def habitantEspacePerso (request):
-	if request.session.has_key('username'):
+	if TestConnexion(request):
 		request.session.set_expiry(600)#10 minutes avant que la session n'expire
 		return render(request,"habitant/espace-personnel.html",{"data":""})
 	else:
@@ -70,7 +86,7 @@ def habitantDemande (request):
 		"CatégorieProduit":produit[2],
 		"PrixProduit":produit[3]})
 	data={"produits": listedataproduits}
-	if not(request.session.has_key('username')):
+	if not(TestConnexion(request)):
 		return HttpResponseRedirect("/habitant/connexion/")
 	elif request.method=='GET':
 		if str(request.GET)=="<QueryDict: {}>":
@@ -89,7 +105,7 @@ def habitantDemande (request):
 		return HttpResponseRedirect("/habitant/espace-personnel/")
 
 def habitantDerniereCommande(request):
-	if request.session.has_key('username'):
+	if TestConnexion(request):
 		listedataproduits=[]
 
 		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
@@ -114,7 +130,7 @@ def habitantDerniereCommande(request):
 		return HttpResponseRedirect("/habitant/connexion/")
 
 def habitantCommandeEnCours (request):
-	if request.session.has_key('username'):
+	if TestConnexion(request):
 		listedataproduits=[]
 
 		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur='"+str(request.session['username'])+"' AND produit.id=idProduit AND idCommande=commande.id AND commande.id=(SELECT MAX(id) FROM commande WHERE idDemandeur='"+str(request.session['username'])+"');")
@@ -137,21 +153,21 @@ def habitantCommandeEnCours (request):
 		return HttpResponseRedirect("/habitant/connexion/")
 
 def habitantSpecial (request):
-	if request.session.has_key('username'):
+	if TestConnexion(request):
 		request.session.set_expiry(600)
 		return render(request,"habitant/demande-spéciale.html",{})
 	else:
 		return HttpResponseRedirect("/habitant/connexion/")
 
 def habitantPaiement (request):
-	if request.session.has_key('username'):
+	if TestConnexion(request):
 		request.session.set_expiry(600)
 		return HttpResponse("Page attribuée au paiement des commandes")
 	else:
 		return HttpResponseRedirect("/habitant/connexion/")
 
 def habitantHistoriqueCommandes(request):
-	if request.session.has_key('username'):
+	if TestConnexion(request):
 		request.session.set_expiry(600)
 		user=request.session['username']
 		listedataproduits=[]
