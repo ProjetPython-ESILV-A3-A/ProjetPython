@@ -1,7 +1,7 @@
 use `projetpython`;
 
 drop table if exists SousCommande;
-drop table if exists commande;
+drop table if exists Commande;
 drop table if exists Demandeur;
 drop table if exists Admin;
 drop table if exists produit;
@@ -35,6 +35,7 @@ primary key (`id`));
 CREATE TABLE `projetpython`.`Commande`(
 `id` int not null auto_increment,
 `idDemandeur` int not null,
+`dateCommande` varchar(12) not null,
 foreign key(idDemandeur)
 references Demandeur(id),
 primary key (`id`));
