@@ -171,19 +171,18 @@ def habitantHistoriqueCommandes(request):
 		request.session.set_expiry(600)
 		user=request.session['username']
 		listedataproduits=[]
-
-		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, sum(prix),sum(quantiteDemandee) FROM produit,souscommande,commande WHERE idDemandeur="+str(user)+" AND produit.id=idProduit AND idCommande=commande.id;")
+		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, sum(prix),sum(quantiteDemandee) FROM produit,souscommande,commande WHERE idDemandeur="+str(user)+" AND produit.id=idProduit AND idCommande=commande.id GROUP BY id;")
 		for produit in listeproduitsbrute:
 			listedataproduits.append({
 			"IdCommande":produit[0],
 			"DateCommande":produit[1],
 			"DateLivraison":produit[2],
-			"PrixTotalCommande":produit[3],
+			"PrixTotalCommande":(produit[3]//0.01)*0.01,
 			"NombreProduit":produit[4]
 			})
 		data={"produits": listedataproduits}
 		if request.method=='GET':
 			data["Title"]="Produits proposés"
-			return render(request, "habitant/commande-en-cours.html", data)
+			return render(request, "habitant/historique-des-commandes.html", data)
 	else:
 		return HttpResponseRedirect("/habitant/connexion/")
