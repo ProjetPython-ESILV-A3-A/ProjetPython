@@ -29,23 +29,8 @@ def communeaction(request):
     return render(request, "commune/communeBase.html", data)
 
 def communeproduitChoix(request):
-    data={"data": [
-            {
-                "nom":"retour arriere",
-                "link":"/commune/action/"
-            },
-            {
-                "nom": "ajout",
-                "link": "/commune/produits/add/"
-            },
-            {
-                "nom":"retirer",
-                "link": "/commune/produits/sub/"
-            }
-        ],
-        "titre":"Selection du destin de produits"
-        }
-    return render(request, "commune/communeBase.html", data)
+
+    return render(request, "commune/page-produit-commune.html")
 
 def communeproduitSub(request):
     if request.method=='GET':
@@ -97,6 +82,32 @@ def communeproduitAdd(request):
         requete="INSERT INTO produit(`nom`,`categorie`,`unite`,`prix`) VALUES ('"+nom+"','"+categorie+"','"+unite+"',"+prix+");"
         return HttpResponseRedirect("/commune/produits/add/")
 
+def communeproduitVis(request):
+    listedataproduits=[]
+    listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,categorie,unite,prix FROM produit")
+    for produit in listeproduitsbrute:
+        listedataproduits.append({
+        "produitId":produit[0],
+        "nom":produit[1],
+        "categorie":produit[2],
+        "unite":produit[3],
+        "Prix":produit[4]
+        })
+    return render(request,"commune/affichage-produit-commune.html",{"produits":listedataproduits})
+
+def habitantVis(request):
+    listedatahabs=[]
+    listeproduitsbrute=DB.ConnexionSQLSelect("SELECT id,nom,email,adresse,telephone,nbprochesfoyer FROM demandeur")
+    for produit in listeproduitsbrute:
+        listedatahabs.append({
+        "habitantId":produit[0],
+        "nom":produit[1],
+        "email":produit[2],
+        "adresse":produit[3],
+        "telephone":produit[4],
+        "NombrePersonneFoyer":produit[5]
+        })
+    return render(request,"commune/listing-habitant.html",{"habitants":listedatahabs})
 
 def communevisuchoix(request):
     data={"data": [
