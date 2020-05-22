@@ -119,16 +119,17 @@ def habitantDemande (request):
 def habitantDerniereCommande(request):
 	if TestConnexion(request):
 		listedataproduits=[]
-
-		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur='"+str(request.session['username'])+"' AND produit.id=idProduit AND idCommande=commande.id AND dateCommande<"+transfoDate(datetime.datetime.now()+datetime.timedelta(days=-3))+"GROUP BY produit.id ORDER BY dateCommande DESC;")
+		MaxID=DB.ConnexionSQLSelect("SELECT MAX(id) FROM commande WHERE idDemandeur="+str(request.session['username'])+" AND dateCommande<="+transfoDate(datetime.datetime.now())+" AND dateCommande>"+transfoDate(datetime.datetime.now()+datetime.timedelta(days=-3))+";")[0][0]
+		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur='"+str(request.session['username'])+"' AND produit.id=idProduit AND idCommande=commande.id AND dateCommande<"+transfoDate(datetime.datetime.now()+datetime.timedelta(days=-3))+";")
 		for produit in listeproduitsbrute:
-			listedataproduits.append({
-			"produitId":produit[0],
-			"NomProduit":produit[1],
-			"CatégorieProduit":produit[2],
-			"PrixProduit":produit[3],
-			"Nombre":produit[4]
-			})
+			if(produit[0]==MaxID):
+				listedataproduits.append({
+				"produitId":produit[0],
+				"NomProduit":produit[1],
+				"CatégorieProduit":produit[2],
+				"PrixProduit":produit[3],
+				"Nombre":produit[4]
+				})
 		data={"produits": listedataproduits}
 		if request.method=='GET':
 			# for element in listeproduitsbrute:
