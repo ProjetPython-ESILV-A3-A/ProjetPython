@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listing des habitants</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style type="text/css">
+        form {
+            margin-top: 5rem;
+        }
+
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            margin-top: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Affichage de l'ensemble des habitants inscrits</h1>
+
+    <div class="col col-8 mx-auto">
+        <form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">email</th>
+                        <th scope="col">adresse</th>
+                        <th scope="col">telephone</th>
+                        <th scope="col">Nombre de personne au foyer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for personne in habitants%}
+                    <tr>
+                        <th scope="row" class="align-middle">{{personne.nom}}</th>
+                        <td class="align-middle">{{personne.email}}</td>
+                        <td class="align-middle">{{personne.adresse}}</td>
+                        <td class="align-middle">{{personne.telephone}}</td>
+                        <td class="align-middle">{{personne.NombrePersonneFoyer}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

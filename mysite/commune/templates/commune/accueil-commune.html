@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accueil Gestion Commune</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<style type="text/css">
+		.content{
+			padding: 5% 0;
+		}
+		.card{
+			position: relative;
+			width: 25%;
+			float: left;
+			height: 575px
+		}
+		.card .btn{
+			position: absolute;
+			bottom: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+        h1 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: larger;
+        }
+
+        nav {
+            margin-bottom: 20px
+        }
+	</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ProjetPython</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><a href="espace-personnel/"></a></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Gestion de l'admin</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Section
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/commune/demande/">Statistiques</a>
+                        <a class="dropdown-item" href="/commune/special/">Produits</a>
+                        <a class="dropdown-item" href="/commune/commande-en-cours/">Habitants</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="/habitant/connexion/">Deconnexion</a>
+            </form>
+        </div>
+    </nav>
+
+    <h1>Espace de Gestion Commune</h1>
+    <h2>
+        Bienvenue dans votre espace de gestion du ProjetPython,
+        que desirez vous faire ?
+    </h2>
+
+    <div class="col-12 mx-auto content">
+        <div class="card">
+            <img src="../../images/business-woman-shakes-hand.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Accédez à la liste des administrés</h5>
+                <p class="card-text">Consultez la liste des habitants s'étant actuelement enregistrés sur la platforme</p>
+                <p class="card-text"><medium class="text-muted">Dernier habitant inscrit:  <a class="align-middle">{{DernierHabInscrit}}</a></medium></p>
+                <a href="#" class="btn btn-secondary">Accéder à la page</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="../../images/healthy-breakfast.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Accédez à la liste des produits de première nécessité</h5>
+                <p class="card-text">Consultez, ajoutez, supprimer ou modifier la liste des produits de première nécessité proposés aux habitants de votre commune</p>
+                <p class="card-text"><medium class="text-muted">Produit le plus demandé : <a class="align-middle">{{ProduitPlusDemandé}}</a></medium></p>
+                <a href="#" class="btn btn-secondary">Accéder à la page</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="../../images/statistic.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Consultez les statistiques sur la commune</h5>
+                <p class="card-text"><medium class="text-muted">Nombre de commande en cours: <a class="align-middle">{{NombreCommandeEnCours}}</a></medium></p>
+                <p class="card-text"><medium class="text-muted">Nombre de produit en stock: <a class="align-middle">{{ProduitStock}}</a></medium></p>
+                <p class="card-text"><medium class="text-muted">Nombre de personne inscrite: <a class="align-middle">{{NombrePersonneInscrite}}</a></medium></p>
+                <a href="#" class="btn btn-secondary">Accéder à la page</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
