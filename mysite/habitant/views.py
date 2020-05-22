@@ -108,7 +108,7 @@ def habitantDerniereCommande(request):
 	if TestConnexion(request):
 		listedataproduits=[]
 
-		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT produit.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande")
+		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur='"+str(request.session['username'])+"' AND produit.id=idProduit AND idCommande=commande.id AND commande.id=(SELECT MAX(id) FROM commande WHERE idDemandeur='"+str(request.session['username'])+"' AND id<(SELECT MAX(id) FROM commande WHERE idDemandeur='"+str(request.session['username'])+"'));")
 		for produit in listeproduitsbrute:
 			listedataproduits.append({
 			"produitId":produit[0],
@@ -133,7 +133,7 @@ def habitantCommandeEnCours (request):
 	if TestConnexion(request):
 		listedataproduits=[]
 
-		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur='"+str(request.session['username'])+"' AND produit.id=idProduit AND idCommande=commande.id AND commande.id=(SELECT MAX(id) FROM commande WHERE idDemandeur='"+str(request.session['username'])+"');")
+		listeproduitsbrute=DB.ConnexionSQLSelect("SELECT commande.id,nom,categorie, prix,quantiteDemandee FROM produit,souscommande,commande WHERE idDemandeur="+str(request.session['username'])+" AND produit.id=idProduit AND idCommande=commande.id AND commande.id=(SELECT MAX(id) FROM commande WHERE idDemandeur="+str(request.session['username'])+");")
 		for produit in listeproduitsbrute:
 			listedataproduits.append({
 			"produitId":produit[0],
