@@ -6,6 +6,7 @@ drop table if exists Demandeur;
 drop table if exists Admin;
 drop table if exists produit;
 
+
 create table `projetpython`.`Demandeur`(
 `id` int not null auto_increment,
 `nom` varchar(25) not null,
@@ -35,7 +36,7 @@ primary key (`id`));
 CREATE TABLE `projetpython`.`Commande`(
 `id` int not null auto_increment,
 `idDemandeur` int not null,
-`dateCommande` varchar(12) not null,
+`dateCommande` datetime not null,
 foreign key(idDemandeur)
 references Demandeur(id),
 primary key (`id`));
