@@ -4,7 +4,8 @@ Created on Thu May 14 15:08:51 2020
 
 @author: bapti
 """
-
+import datetime
+import time
 import matplotlib.pyplot as plt
 import sys
 sys.path.append('../')
@@ -47,6 +48,25 @@ def quantite_total_produit():
     plt.savefig('quantite_produit.png')
     #plt.show()
 
+
+#barplot des produits d'une catégorie choisie
+def quantite_produits_categorie(categorie):
+    requete = "SELECT P.nom, sum(SC.quantiteDemandee) FROM souscommande SC JOIN produit P WHERE P.id = SC.idProduit AND P.categorie='"+categorie+"' GROUP BY P.nom;"
+    liste = DB.ConnexionSQLSelect(requete)
+    n = len(liste)
+    liste_nom = []
+    liste_quant=[]
+    for i in range(0,n):
+        liste_nom.append(liste[i][0])
+        liste_quant.append(liste[i][1])
+    plt.figure(figsize=(15,n//2+3))
+    plt.barh(liste_nom,liste_quant,height=0.5,color = 'dodgerblue')
+    plt.title('Produits de la catégorie : '+categorie)
+    plt.xlabel('Quantités commandées')
+    plt.ylabel('Produits')
+    plt.savefig('quantite_produit_catégorie.png')
+    #plt.show()
+    
     
 #barplot du top 5 des produits les plus commandés
 def top5_produit():
@@ -70,7 +90,7 @@ def detail_commande(id_comm):
     requete = "SELECT P.nom, sum(SC.quantiteDemandee) FROM souscommande SC, produit P, commande C WHERE C.id="+str(id_comm)+" AND SC.idCommande = C.id AND P.id = SC.idProduit GROUP BY P.nom; "
     return DB.ConnexionSQLSelect(requete)
 
-#>PROBLEMO
+
 #renvoi la liste des produits d'une catégorie
 def produit_par_categorie(categorie):
     requete = "SELECT nom FROM produit WHERE categorie='"+categorie+"';"
@@ -95,7 +115,7 @@ def moyenne(produit):
     quantite=a[0][0]
     requete = "SELECT count(*) FROM commande;"
     b = DB.ConnexionSQLSelect(requete)
-    nb_comm = b[0][0]
+    nb_comm = b[0][0] 
     return quantite/nb_comm
 
 
@@ -122,3 +142,18 @@ def nombre_inscription():
     requete = "SELECT count(*) FROM demandeur;"
     nb = DB.ConnexionSQLSelect(requete)[0][0]
     return nb
+
+
+def liste_categorie():
+    requete = "SELECT distinct categorie FROM produit;"
+    return DB.ConnexionSQLSelect(requete)
+    
+#renvoie le nombre de commande en cours (pas encore livrées)
+def nombre_commande_encours():
+    date0 = datetime.date.today()
+    date1 = date0 - datetime.timedelta(days=1)
+    date2 = date0 - datetime.timedelta(days=2)
+    requete = "SELECT count(*) FROM commande WHERE datecommande ='"+date0+"' OR datecommande ='"+date1+"' OR datecommande ='"+date2+"';"
+    nb = DB.ConnexionSQLSelect(requete)[0][0]
+    return nb
+
