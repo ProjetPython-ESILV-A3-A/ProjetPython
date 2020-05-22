@@ -3,8 +3,107 @@
 <head>
     <meta charset="UTF-8" />
     <title>Accueil</title>
-    <link rel="stylesheet" type="text/css" href="accueil.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style type="text/css">
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+            margin-right: 15px; 
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+
+        .active 
+        {
+            background-color: #4CAF50;
+        } 
+
+        #bloc
+        {
+            margin : auto;
+            width :1100px;
+            color : #181818;
+            margin-top : 35px;
+        }
+
+        #section h1 
+        {
+            font-family: Dayrom, serif;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        #section 
+        {
+            display :flex;
+            margin-bottom: 20px;
+        }
+
+        article, aside 
+        {
+            text-align: justify;
+        }
+
+        article 
+        {
+            flex:5;
+            margin-right: 20px;
+            
+        }
+
+        aside 
+        {
+            flex:2;    
+            border-radius:  5px;
+            padding : 10px;
+            font-size : 0.9em;
+            background-color : beige;
+
+        }
+        li a:hover {
+            background-color: #111;
+        }
+        /* Définition des polices personnalisées */
+
+        @font-face
+        {
+            font-family: 'BallparkWeiner';
+            src: url('polices/ballpark.eot');
+            src: url('polices/ballpark.eot?#iefix') format('embedded-opentype'),
+                 url('polices/ballpark.woff') format('woff'),
+                 url('polices/ballpark.ttf') format('truetype'),
+                 url('polices/ballpark.svg#BallparkWeiner') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face
+        {
+            font-family: 'Dayrom';
+            src: url('polices/dayrom.eot');
+            src: url('polices/dayrom.eot?#iefix') format('embedded-opentype'),
+                 url('polices/dayrom.woff') format('woff'),
+                 url('polices/dayrom.ttf') format('truetype'),
+                 url('polices/dayrom.svg#Dayrom') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
 </head>
     <body>
 
@@ -31,6 +130,9 @@
                     
                 </aside>
             </div>
-        </div>    
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
     </body>
 </html>
