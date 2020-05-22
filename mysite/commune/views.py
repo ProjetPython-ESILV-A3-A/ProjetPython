@@ -7,19 +7,7 @@ import io
 # Create your views here.
 
 def communeBase(request):
-    data={"data": [
-            {
-                "nom":"retour arriere",
-                "link":"/"
-            },
-            {
-                "nom": "action",
-                "link": "/commune/action"
-            }
-        ],
-        "titre":"Imaginer ici un ecran d'identification"
-        }
-    return render(request, "commune/communeBase.html", data)
+    return render(request, "commune/index.html")
 
 def communeaction(request):
     data={"data": [
