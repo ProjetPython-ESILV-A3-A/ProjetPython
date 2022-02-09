@@ -4,7 +4,7 @@ Ce projet à été fait pendant la période de confinement du Coronavirus Sars-C
 Ce projet est un projet étudiant. Il a été réalisé par 6 étudiants en 1 ère année du cycle ingénieur à l'ESILV.
 Ce projet est un projet avec cahier des charges imposé.
 
-Le projet à reçu la note de 18,75/20 lors de sa soutenance.
+Le projet a reçu la note de 18,75/20 lors de sa soutenance.
 
 
 Outils d'organisation qui nous ont démarqué des autres équipes:   
